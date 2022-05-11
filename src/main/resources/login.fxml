@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #29d6b8; -fx-border-color: #E24460;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.book_shop.controllers.LogInController">
+    <left>
+        <AnchorPane prefHeight="400.0" prefWidth="290.0" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fitHeight="336.0" fitWidth="280.0" layoutX="5.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@book_icon.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
+    </left>
+    <right>
+        <AnchorPane prefHeight="400.0" prefWidth="314.0" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fitHeight="77.0" fitWidth="88.0" layoutX="168.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@login_final.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="10.0" layoutY="116.0" prefHeight="30.0" prefWidth="103.0" style="-fx-background-color: #E24460;" text="Username">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Label layoutX="10.0" layoutY="168.0" prefHeight="30.0" prefWidth="103.0" style="-fx-background-color: #E24460;" text="Password">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="username" layoutX="132.0" layoutY="119.0" promptText="Username" />
+                <PasswordField fx:id="password" layoutX="132.0" layoutY="170.0" promptText="Password" />
+                <Button fx:id="login" layoutX="133.0" layoutY="271.0" mnemonicParsing="false" onAction="#userLogIn" prefHeight="36.0" prefWidth="69.0" style="-fx-background-color: #E24460;" text="Log In">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                </Button>
+                <Label layoutX="10.0" layoutY="218.0" prefHeight="30.0" prefWidth="103.0" style="-fx-background-color: #E24460;" text="Role">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <ChoiceBox fx:id="role" layoutX="131.0" layoutY="220.0" prefWidth="150.0" />
+                <Text layoutX="10.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account?" wrappingWidth="138.069580078125" />
+                <Button layoutX="168.0" layoutY="339.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="34.0" prefWidth="123.0" style="-fx-background-color: #E24460;" text="Create Account">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Button>
+                <Label fx:id="login_message" layoutX="34.0" layoutY="83.0" textFill="RED">
+                    <font>
+                        <Font size="14.0" />
+                    </font></Label>
+            </children>
+        </AnchorPane>
+    </right>
+</BorderPane>
