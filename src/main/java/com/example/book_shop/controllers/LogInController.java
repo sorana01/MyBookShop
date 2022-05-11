@@ -26,6 +26,11 @@ public class LogInController {
     @FXML
     private ChoiceBox role;
 
+    @FXML
+    public void initialize() {
+        role.getItems().addAll("Client", "Manager", "Courier");
+    }
+
 
     public void userLogIn(ActionEvent bookShopInterface) throws Exception {
 
