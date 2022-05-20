@@ -1,5 +1,7 @@
 package com.example.book_shop.services;
 
+import com.example.book_shop.exceptions.CouldNotWriteBooksException;
+import com.example.book_shop.exceptions.EmptyTextFieldsException;
 import com.example.book_shop.model.Book;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,6 +32,17 @@ public class ManagerBookService {
         });
     }
 
+    public static void addBook(String title, String author, String price, String category, String quantity) {
+        book_database.add(new Book(title, price, category, quantity, author));
+        persistBooks();
+    }
 
-
+    public static void persistBooks() {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(BOOKS_PATH.toFile(), book_database);
+        } catch (IOException e) {
+            throw new CouldNotWriteBooksException();
+        }
+    }
 }

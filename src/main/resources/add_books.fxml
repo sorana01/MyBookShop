@@ -89,7 +89,7 @@
             <TextField fx:id="quantity" layoutX="150.0" layoutY="331.0" promptText="Quantity" />
             <Label fx:id="add_message" layoutX="160.0" layoutY="429.0" textFill="RED">
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold" size="14.0" />
                </font></Label>
             </children>
         </AnchorPane>
