@@ -1,3 +1,9 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+
+# Intellij IDEA
+*.iml
+.idea
+target
+build
