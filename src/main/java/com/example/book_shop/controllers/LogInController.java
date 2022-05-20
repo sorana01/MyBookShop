@@ -1,5 +1,10 @@
 package com.example.book_shop.controllers;
 
+import com.example.book_shop.exceptions.EmptyTextFieldsException;
+import com.example.book_shop.exceptions.UsernameDoesNotExistException;
+import com.example.book_shop.exceptions.WrongPasswordException;
+import com.example.book_shop.exceptions.WrongRoleException;
+import com.example.book_shop.services.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,9 +36,25 @@ public class LogInController {
         role.getItems().addAll("Client", "Manager", "Courier");
     }
 
+    private static String loggedUser;
+
 
     public void userLogIn(ActionEvent bookShopInterface) throws Exception {
+        try {
+            UserService.checkUserCredentials(username.getText(), password.getText(), (String) role.getValue());
+            login_message.setText("Login successfully!");
+            loggedUser = UserService.getLoggedUser(username.getText());
 
+        } catch(UsernameDoesNotExistException e) {
+            login_message.setText(e.getMessage());
+        } catch(WrongPasswordException e) {
+            login_message.setText(e.getMessage());
+        } catch(WrongRoleException e) {
+            login_message.setText(e.getMessage());
+        }
+        catch(EmptyTextFieldsException e) {
+            login_message.setText(e.getMessage());
+        }
     }
 
     public void createAccount(ActionEvent register)throws Exception{

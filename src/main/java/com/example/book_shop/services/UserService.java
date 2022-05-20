@@ -48,6 +48,27 @@ public class UserService {
         persistUsers();
     }
 
+    public static void checkUserCredentials(String username,String password,String role) throws EmptyTextFieldsException, UsernameDoesNotExistException, WrongPasswordException, WrongRoleException {
+        int oku = 0, okp = 0, okr = 0;
+        for (User user : user_database) {
+            if (Objects.equals(username, user.getUsername())) {
+                oku = 1;
+                if (Objects.equals(role, user.getRole()))
+                    okr = 1;
+            }
+            if (Objects.equals(encodePassword(username, password), user.getPassword()))
+                okp = 1;
+        }
+
+        if (oku == 0)
+            throw new UsernameDoesNotExistException();
+        if (okr == 0)
+            throw new WrongRoleException();
+        if (okp == 0)
+            throw new WrongPasswordException();
+
+    }
+
     public static void checkAllDigitsEntered(String string) throws NotAllCharactersAreDigitsException {
         if (string.matches("[0-9]+") != true) {
             throw new NotAllCharactersAreDigitsException();
@@ -87,6 +108,27 @@ public class UserService {
             if (Objects.equals(username, user.getUsername()))
                 throw new UsernameAlreadyExistsException();
         }
+    }
+
+    public static String getLoggedUser(String username){
+        for (User user : user_database) {
+            if (Objects.equals(username, user.getUsername()))
+                return username;
+        }
+        return "";
+    }
+
+    public static String getUserRole(String username){
+        for (User user : user_database) {
+            if (Objects.equals(username, user.getUsername()))
+                if(Objects.equals(user.getRole(),"Client"))
+                    return "Client";
+                else if (Objects.equals(user.getRole(), "Manager"))
+                    return "Manager";
+                else
+                    return "Courier";
+        }
+        return "";
     }
 
     private static void persistUsers() {
