@@ -1,6 +1,6 @@
 package com.example.book_shop.services;
 
-import com.example.book_shop.exceptions.CouldNotWriteUsersException;
+import com.example.book_shop.exceptions.*;
 import com.example.book_shop.model.User;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,9 +36,57 @@ public class UserService {
 
 
     public static void addUser(String username, String password, String role, String full_name, String address,
-                               String phone_number, String email, String confirm_password) {
+                               String phone_number, String email, String confirm_password) throws UsernameAlreadyExistsException,
+            EmptyTextFieldsException, EmailAlreadyUsedException, WrongPasswordConfirmationException, PhoneNumberAlreadyUsedException, NotAllCharactersAreDigitsException {
+        checkEmptyTextFields(username, password, role, full_name, address, email, phone_number);
+        checkUserDoesNotAlreadyExist(username);
+        checkUsedEmail(email);
+        checkPasswordConfirmation(password, confirm_password);
+        checkAllDigitsEntered(phone_number);
+        checkPhoneNumberNotUsed(phone_number);
         user_database.add(new User(username, encodePassword(username, password), role, full_name, address, phone_number, email));
         persistUsers();
+    }
+
+    public static void checkAllDigitsEntered(String string) throws NotAllCharactersAreDigitsException {
+        if (string.matches("[0-9]+") != true) {
+            throw new NotAllCharactersAreDigitsException();
+        }
+    }
+
+    private static void checkPhoneNumberNotUsed(String phone_number) throws PhoneNumberAlreadyUsedException {
+        for (User user : user_database) {
+            if (Objects.equals(phone_number, user.getPhone_number()))
+                throw new PhoneNumberAlreadyUsedException();
+        }
+    }
+
+    private static void checkPasswordConfirmation(String password, String confirm_password) throws WrongPasswordConfirmationException {
+        if( !Objects.equals(password, confirm_password))
+            throw new WrongPasswordConfirmationException();
+    }
+
+    private static void checkUsedEmail(String email) throws EmailAlreadyUsedException{
+        for (User user : user_database) {
+            if (Objects.equals(email, user.getEmail()))
+                throw new EmailAlreadyUsedException();
+        }
+    }
+
+    private static void checkEmptyTextFields(String username, String password, String role, String full_name,
+                                             String address, String email, String phone_number) throws EmptyTextFieldsException {
+        if( Objects.equals(username,"") || Objects.equals(password, "") || Objects.equals(full_name,"")
+                || Objects.equals(address,"") || Objects.equals(email,"") || Objects.equals(phone_number,""))
+            throw new EmptyTextFieldsException();
+        else if( !( Objects.equals(role,"Manager") || Objects.equals(role,"Client") || Objects.equals(role, "Courier") ))
+            throw new EmptyTextFieldsException();
+    }
+
+    private static void checkUserDoesNotAlreadyExist(String username) throws UsernameAlreadyExistsException {
+        for (User user : user_database) {
+            if (Objects.equals(username, user.getUsername()))
+                throw new UsernameAlreadyExistsException();
+        }
     }
 
     private static void persistUsers() {

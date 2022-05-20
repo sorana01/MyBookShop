@@ -1,5 +1,6 @@
 package com.example.book_shop.controllers;
 
+import com.example.book_shop.exceptions.*;
 import com.example.book_shop.services.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,9 +45,23 @@ public class RegisterController {
 
 
     public void createAccount(ActionEvent actionEvent) {
-        UserService.addUser(username.getText(), password.getText(), (String) role.getValue(),
-                full_name.getText(), address.getText(), phone_number.getText(), email.getText(), confirm_password.getText());
-        registration_message.setText("Account created successfully!");
+        try {
+            UserService.addUser(username.getText(), password.getText(), (String) role.getValue(),
+                    full_name.getText(), address.getText(), phone_number.getText(), email.getText(), confirm_password.getText());
+            registration_message.setText("Account created successfully!");
+        } catch (EmptyTextFieldsException e){
+            registration_message.setText(e.getMessage());
+        } catch (WrongPasswordConfirmationException e) {
+            registration_message.setText(e.getMessage());
+        } catch (UsernameAlreadyExistsException e) {
+            registration_message.setText(e.getMessage());
+        } catch (EmailAlreadyUsedException e){
+            registration_message.setText(e.getMessage());
+        } catch(PhoneNumberAlreadyUsedException e) {
+            registration_message.setText(e.getMessage());
+        } catch(NotAllCharactersAreDigitsException e) {
+            registration_message.setText(e.getMessage());
+        }
     }
 
     public void goBackToLogin(ActionEvent login) throws IOException {
