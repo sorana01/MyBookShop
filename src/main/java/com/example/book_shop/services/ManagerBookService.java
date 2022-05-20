@@ -2,6 +2,8 @@ package com.example.book_shop.services;
 
 import com.example.book_shop.exceptions.CouldNotWriteBooksException;
 import com.example.book_shop.exceptions.EmptyTextFieldsException;
+import com.example.book_shop.exceptions.NotAllCharactersAreDigitsException;
+import com.example.book_shop.exceptions.TitleAndAuthorUsedException;
 import com.example.book_shop.model.Book;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,9 +34,25 @@ public class ManagerBookService {
         });
     }
 
-    public static void addBook(String title, String author, String price, String category, String quantity) {
+    public static void addBook(String title, String author, String price, String category, String quantity) throws EmptyTextFieldsException, TitleAndAuthorUsedException, NotAllCharactersAreDigitsException {
+        checkEmptyTextFields(title, author, price, category, quantity);
+        checkTitleAndAuthorExist(title, author);
+        UserService.checkAllDigitsEntered(price);
+        UserService.checkAllDigitsEntered(quantity);
         book_database.add(new Book(title, price, category, quantity, author));
         persistBooks();
+    }
+
+    public static void checkEmptyTextFields(String title, String author, String price, String category, String quantity) throws EmptyTextFieldsException {
+        if( Objects.equals(title,"") || Objects.equals(author, "") || Objects.equals(price,"")
+                || Objects.equals(category,"") || Objects.equals(quantity,""))
+            throw new EmptyTextFieldsException();
+    }
+
+    public static void checkTitleAndAuthorExist(String title, String author) throws TitleAndAuthorUsedException {
+        for (Book book : book_database)
+            if (Objects.equals(title, book.getTitle()) && Objects.equals(author, book.getAuthor()))
+                throw new TitleAndAuthorUsedException();
     }
 
     public static void persistBooks() {

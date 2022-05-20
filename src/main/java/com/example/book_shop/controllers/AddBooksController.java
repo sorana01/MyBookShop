@@ -1,5 +1,8 @@
 package com.example.book_shop.controllers;
 
+import com.example.book_shop.exceptions.EmptyTextFieldsException;
+import com.example.book_shop.exceptions.NotAllCharactersAreDigitsException;
+import com.example.book_shop.exceptions.TitleAndAuthorUsedException;
 import com.example.book_shop.services.ManagerBookService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,8 +45,17 @@ public class AddBooksController {
         window.show();
     }
 
+
     public void add_book(ActionEvent actionEvent) {
-        ManagerBookService.addBook(title.getText(), author.getText(), price.getText(), (String)category.getValue(), quantity.getText());
-        add_message.setText("Book added successfully!");
+            try {
+                ManagerBookService.addBook(title.getText(), author.getText(), price.getText(), (String)category.getValue(), quantity.getText());
+                add_message.setText("Book added successfully!");
+            } catch(EmptyTextFieldsException e) {
+                add_message.setText(e.getMessage());
+            } catch(TitleAndAuthorUsedException e) {
+                add_message.setText(e.getMessage());
+            } catch (NotAllCharactersAreDigitsException e) {
+                add_message.setText(e.getMessage());
+            }
+        }
     }
-}
