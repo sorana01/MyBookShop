@@ -43,8 +43,29 @@ public class LogInController {
         try {
             UserService.checkUserCredentials(username.getText(), password.getText(), (String) role.getValue());
             login_message.setText("Login successfully!");
-            loggedUser = UserService.getLoggedUser(username.getText());
+            String userRole = UserService.getUserRole(username.getText());
+            if(userRole.equals("Manager")){
+                Parent adminInterface = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("manager_page.fxml")));
+                Stage window = (Stage) ((Node) bookShopInterface.getSource()).getScene().getWindow();
+                window.setTitle("Book Shop");
+                window.setScene(new Scene(adminInterface, 600, 460));
+                window.show();
+            }
+            else if (userRole.equals("Client")){
+                Parent customerInterface = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("client_page.fxml")));
+                Stage window = (Stage) ((Node) bookShopInterface.getSource()).getScene().getWindow();
+                window.setTitle("Book Shop");
+                window.setScene(new Scene(customerInterface, 600, 460));
+                window.show();
 
+            }
+            else {
+                Parent customerInterface = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("courier_page.fxml")));
+                Stage window = (Stage) ((Node) bookShopInterface.getSource()).getScene().getWindow();
+                window.setTitle("Book Shop");
+                window.setScene(new Scene(customerInterface, 600, 460));
+                window.show();
+            }
         } catch(UsernameDoesNotExistException e) {
             login_message.setText(e.getMessage());
         } catch(WrongPasswordException e) {
