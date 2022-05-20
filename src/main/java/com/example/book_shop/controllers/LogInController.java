@@ -37,7 +37,11 @@ public class LogInController {
     }
 
     public void createAccount(ActionEvent register)throws Exception{
-
+        Parent root1 = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("register.fxml")));
+        Stage window = (Stage) ((Node) register.getSource()).getScene().getWindow();
+        window.setTitle("Registration");
+        window.setScene(new Scene(root1, 600, 400));
+        window.show();
     }
 
 }
