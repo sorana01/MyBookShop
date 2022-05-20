@@ -1,5 +1,6 @@
 package com.example.book_shop.controllers;
 
+import com.example.book_shop.services.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,7 +44,9 @@ public class RegisterController {
 
 
     public void createAccount(ActionEvent actionEvent) {
-
+        UserService.addUser(username.getText(), password.getText(), (String) role.getValue(),
+                full_name.getText(), address.getText(), phone_number.getText(), email.getText(), confirm_password.getText());
+        registration_message.setText("Account created successfully!");
     }
 
     public void goBackToLogin(ActionEvent login) throws IOException {
