@@ -66,6 +66,11 @@ public class ManagerController {
     public void deleteBook(ActionEvent actionEvent) {
     }
 
-    public void editBook(ActionEvent actionEvent) {
+    public void editBook(ActionEvent actionEvent) throws IOException {
+        Parent root1 = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("edit_books.fxml")));
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setTitle("Edit Books");
+        window.setScene(new Scene(root1, 600, 460));
+        window.show();
     }
 }
