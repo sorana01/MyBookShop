@@ -43,6 +43,45 @@ public class ManagerBookService {
         persistBooks();
     }
 
+    public static void editBook(String title, String author, String title_new, String author_new, String price_new, String category_new, String quantity_new) {
+        String category = "";
+
+        Book book_aux = new Book();
+        int index = 0;
+
+        for (Book book : book_database) {
+            if (Objects.equals(title, book.getTitle()) && Objects.equals(author, book.getAuthor())) {
+                book_aux = book;
+                category = book.getCategory();
+                break;
+            }
+            index++;
+        }
+
+        if (!Objects.equals(title_new, "")) {
+            book_aux.setTitle(title_new);
+            book_aux.setCategory(category);
+        }
+        if (!Objects.equals(author_new, "")) {
+            book_aux.setAuthor(author_new);
+            book_aux.setCategory(category);
+        }
+        if (!Objects.equals(price_new, "")) {
+            book_aux.setPrice(price_new);
+            book_aux.setCategory(category);
+        }
+        if (!Objects.equals(category_new, "")) {
+            book_aux.setCategory(category_new);
+        }
+        if (!Objects.equals(quantity_new, "")) {
+            book_aux.setQuantity(quantity_new);
+            book_aux.setCategory(category);
+        }
+
+        book_database.set(index, book_aux);
+        persistBooks();
+    }
+
     public static void checkEmptyTextFields(String title, String author, String price, String category, String quantity) throws EmptyTextFieldsException {
         if( Objects.equals(title,"") || Objects.equals(author, "") || Objects.equals(price,"")
                 || Objects.equals(category,"") || Objects.equals(quantity,""))
