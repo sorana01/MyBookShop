@@ -1,7 +1,7 @@
 package com.example.book_shop.controllers;
 
 import com.example.book_shop.model.Book;
-import com.example.book_shop.services.ManagerBookService;
+import com.example.book_shop.services.ClientBookService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,10 +17,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
-public class ClientController {
-    private static List<Book> book_database = ManagerBookService.getBooks();
+public class SeeCartController {
+    private static List<Book> shopping_cart_database = ClientBookService.getShoppingCart_database();
 
     @FXML
     public TableView<Book> books_view = new TableView<>();
@@ -33,6 +32,8 @@ public class ClientController {
     public TableColumn<Book, String> price_col;
     @FXML
     public TableColumn<Book, String> category_col;
+    @FXML
+    public TableColumn<Book, String> quantity_col;
 
 
     @FXML
@@ -42,22 +43,28 @@ public class ClientController {
         author_col.setCellValueFactory(new PropertyValueFactory<>("Author"));
         price_col.setCellValueFactory(new PropertyValueFactory<>("Price"));
         category_col.setCellValueFactory(new PropertyValueFactory<>("Category"));
+        quantity_col.setCellValueFactory(new PropertyValueFactory<>("Quantity"));
 
-        for (Book book : book_database) {
+
+        for (Book book : shopping_cart_database) {
             items.add(book);
             books_view.setItems(items);
         }
     }
 
-
-    public void addToCart(ActionEvent actionEvent) throws IOException {
-        Parent root1 = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("add_to_cart.fxml")));
+    public void placeOrder(ActionEvent actionEvent) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("place_order.fxml"));
         Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        window.setTitle("Add Products to Cart");
-        window.setScene(new Scene(root1, 600, 460));
+        window.setTitle("Finish Purchase");
+        window.setScene(new Scene(parent, 600, 460));
         window.show();
     }
 
-    public void seeOrders(ActionEvent actionEvent) {
+    public void backButton(ActionEvent actionEvent) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("add_to_cart.fxml"));
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setTitle("Add Products to Cart");
+        window.setScene(new Scene(parent, 600, 460));
+        window.show();
     }
 }
