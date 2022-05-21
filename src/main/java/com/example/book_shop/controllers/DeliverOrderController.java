@@ -1,6 +1,11 @@
 package com.example.book_shop.controllers;
 
+import com.example.book_shop.exceptions.EmptyTextFieldsException;
+import com.example.book_shop.exceptions.NotAllCharactersAreDigitsException;
+import com.example.book_shop.exceptions.OrderNumberDoesntExistException;
+import com.example.book_shop.exceptions.StatusAlreadyModifiedException;
 import com.example.book_shop.services.CourierBookService;
+import com.example.book_shop.services.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -21,8 +26,18 @@ public class DeliverOrderController {
 
 
     public void saveButton(ActionEvent actionEvent) {
-        CourierBookService.modifyOrderStatus(Integer.parseInt(order_number.getText()), (String) new_status.getValue());
-        message.setText("Status modified successfully!");
+        try{
+            CourierBookService.modifyOrderStatus(order_number.getText(), (String) new_status.getValue());
+            message.setText("Status modified successfully!");
+        } catch(NotAllCharactersAreDigitsException e) {
+            message.setText(e.getMessage());
+        } catch(EmptyTextFieldsException e) {
+            message.setText(e.getMessage());
+        } catch(StatusAlreadyModifiedException e) {
+            message.setText(e.getMessage());
+        } catch(OrderNumberDoesntExistException e) {
+            message.setText(e.getMessage());
+        }
     }
 
     public void backButton(ActionEvent actionEvent) {

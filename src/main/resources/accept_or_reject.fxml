@@ -46,7 +46,7 @@
                         </Text>
                     </center>
                 </BorderPane>
-                <Label fx:id="message" layoutX="150.0" layoutY="402.0" textFill="RED">
+                <Label fx:id="message" layoutX="135.0" layoutY="367.0" textFill="RED">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font></Label>

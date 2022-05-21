@@ -44,8 +44,7 @@ public class AcceptOrRejectController {
 
     public void saveButton(ActionEvent actionEvent) {
         try {
-            UserService.checkAllDigitsEntered(order_number.getText());
-            ManagerBookService.modifyOrderStatus(Integer.parseInt(order_number.getText()), (String) accept_or_reject.getValue());
+            ManagerBookService.modifyOrderStatus(order_number.getText(), (String) accept_or_reject.getValue());
             message.setText("Status modified successfully!");
         } catch (EmptyTextFieldsException e) {
             message.setText(e.getMessage());
