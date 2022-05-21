@@ -29,7 +29,12 @@ public class AddToCartController {
     private Label message;
 
 
-    public void backButton(ActionEvent actionEvent) {
+    public void backButton(ActionEvent actionEvent) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("client_page.fxml"));
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setTitle("Book Shop");
+        window.setScene(new Scene(parent, 600, 460));
+        window.show();
     }
 
     public void addToCart(ActionEvent actionEvent) {
