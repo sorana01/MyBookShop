@@ -2,6 +2,7 @@ package com.example.book_shop.services;
 
 import com.example.book_shop.exceptions.*;
 import com.example.book_shop.model.Book;
+import com.example.book_shop.model.Order;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
@@ -14,6 +15,8 @@ import java.util.Objects;
 
 public class ManagerBookService {
     private static List<Book> book_database;
+    private static List<Order> accepted_order_database;
+    private static final Path ACCEPTED_ORDERS_PATH = FileSystemService.getPathToFile("accepted_orders.json");
     private static final Path BOOKS_PATH = FileSystemService.getPathToFile("books.json");
 
     public static List<Book> getBooks() {
@@ -28,6 +31,16 @@ public class ManagerBookService {
 
         ObjectMapper objectMapper = new ObjectMapper();
         book_database = objectMapper.readValue(BOOKS_PATH.toFile(), new TypeReference<>() {
+        });
+    }
+
+    public static void loadAcceptedOrdersFromFile() throws IOException {
+        if (!Files.exists(ACCEPTED_ORDERS_PATH)) {
+            FileUtils.copyURLToFile(Objects.requireNonNull(UserService.class.getClassLoader().getResource("accepted_orders.json")), ACCEPTED_ORDERS_PATH.toFile());
+        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        accepted_order_database = objectMapper.readValue(ACCEPTED_ORDERS_PATH.toFile(), new TypeReference<>() {
         });
     }
 
@@ -102,6 +115,18 @@ public class ManagerBookService {
         }
     }
 
+    public static void modifyOrderStatus(int number, String new_status) {
+
+        for (Order order : ClientBookService.getOrder_database()) {
+            if (Objects.equals(order.getOrder_number(), number)) {
+                order.setStatus(new_status);
+                ClientBookService.persistOrders();
+
+                break;
+            }
+        }
+    }
+
     public static void checkBookDoesntExist(String title, String author) throws BookDoesntExistException {
         int book_exists = 0;
 
@@ -137,6 +162,15 @@ public class ManagerBookService {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(BOOKS_PATH.toFile(), book_database);
         } catch (IOException e) {
             throw new CouldNotWriteBooksException();
+        }
+    }
+
+    public static void persistAcceptedOrders() {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(ACCEPTED_ORDERS_PATH.toFile(), accepted_order_database);
+        } catch (IOException e) {
+            throw new CouldNotWriteOrdersException();
         }
     }
 }
