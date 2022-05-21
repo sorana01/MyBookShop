@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -31,14 +30,6 @@
                         <Font name="System Bold Italic" size="21.0" />
                     </font>
                 </Label>
-                <Label fx:id="registration_message" layoutX="179.0" layoutY="306.0" style="-fx-text-fill: #FF0000;">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                    <effect>
-                        <Glow />
-                    </effect>
-                </Label>
                 <BorderPane prefHeight="46.0" prefWidth="600.0" style="-fx-border-color: #E24460;">
                     <left>
                         <ImageView fitHeight="44.0" fitWidth="45.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
@@ -55,9 +46,9 @@
                         </Text>
                     </center>
                 </BorderPane>
-                <Label fx:id="message" layoutX="149.0" layoutY="392.0" textFill="RED">
+                <Label fx:id="message" layoutX="163.0" layoutY="402.0" textFill="RED">
                     <font>
-                        <Font size="14.0" />
+                        <Font name="System Bold" size="15.0" />
                     </font></Label>
                 <Label layoutX="14.0" layoutY="229.0" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: #E24460;" text="Status">
                     <font>

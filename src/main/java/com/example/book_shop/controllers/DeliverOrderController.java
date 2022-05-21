@@ -1,5 +1,6 @@
 package com.example.book_shop.controllers;
 
+import com.example.book_shop.services.CourierBookService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -20,6 +21,8 @@ public class DeliverOrderController {
 
 
     public void saveButton(ActionEvent actionEvent) {
+        CourierBookService.modifyOrderStatus(Integer.parseInt(order_number.getText()), (String) new_status.getValue());
+        message.setText("Status modified successfully!");
     }
 
     public void backButton(ActionEvent actionEvent) {
