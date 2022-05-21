@@ -115,7 +115,10 @@ public class ManagerBookService {
         }
     }
 
-    public static void modifyOrderStatus(int number, String new_status) {
+    public static void modifyOrderStatus(int number, String new_status) throws EmptyTextFieldsException, StatusAlreadyModifiedException, OrderNumberDoesntExistException {
+        checkEmptyTextFieldsForModifyStatus(number, new_status);
+        checkStatusAlreadyModified(number);
+        checkOrderNumberDoesntExist(number);
 
         for (Order order : ClientBookService.getOrder_database()) {
             if (Objects.equals(order.getOrder_number(), number)) {
@@ -130,6 +133,18 @@ public class ManagerBookService {
         }
     }
 
+    public static void checkOrderNumberDoesntExist(int number) throws OrderNumberDoesntExistException {
+        int exists = 0;
+
+        for (Order order : ClientBookService.getOrder_database()) {
+            if (Objects.equals(number, order.getOrder_number()))
+                exists = 1;
+        }
+        if (exists == 0) {
+            throw new OrderNumberDoesntExistException();
+        }
+    }
+
     public static void checkBookDoesntExist(String title, String author) throws BookDoesntExistException {
         int book_exists = 0;
 
@@ -140,6 +155,11 @@ public class ManagerBookService {
 
         if (book_exists == 0)
             throw new BookDoesntExistException();
+    }
+
+    public static void checkEmptyTextFieldsForModifyStatus(int number, String status) throws EmptyTextFieldsException{
+        if( Objects.equals(number,"") || Objects.equals(status, ""))
+            throw new EmptyTextFieldsException();
     }
 
     public static void checkEmptyTextFieldsForEdit(String title, String author) throws EmptyTextFieldsException{
@@ -157,6 +177,15 @@ public class ManagerBookService {
         for (Book book : book_database)
             if (Objects.equals(title, book.getTitle()) && Objects.equals(author, book.getAuthor()))
                 throw new TitleAndAuthorUsedException();
+    }
+
+    public static void checkStatusAlreadyModified(int number) throws StatusAlreadyModifiedException{
+        for (Order order : ClientBookService.getOrder_database()) {
+            if (Objects.equals(number, order.getOrder_number())) {
+                if (!Objects.equals(order.getStatus(), "PENDING"))
+                    throw new StatusAlreadyModifiedException();
+            }
+        }
     }
 
     public static void persistBooks() {
