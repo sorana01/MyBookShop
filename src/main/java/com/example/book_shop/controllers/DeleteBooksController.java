@@ -20,8 +20,14 @@ public class DeleteBooksController {
 
 
     public void delete_book(ActionEvent actionEvent) {
-        ManagerBookService.deleteBook(title.getText(), author.getText());
-        add_message.setText("Book deleted successfully!");
+        try {
+            ManagerBookService.deleteBook(title.getText(), author.getText());
+            add_message.setText("Book deleted successfully!");
+        } catch(BookDoesntExistException e) {
+            add_message.setText(e.getMessage());
+        } catch(EmptyTextFieldsException e) {
+            add_message.setText(e.getMessage());
+        }
     }
 
     public void back_button(ActionEvent actionEvent) throws IOException {
