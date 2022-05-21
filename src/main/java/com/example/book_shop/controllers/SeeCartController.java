@@ -60,6 +60,11 @@ public class SeeCartController {
         window.show();
     }
 
-    public void backButton(ActionEvent actionEvent) {
+    public void backButton(ActionEvent actionEvent) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("add_to_cart.fxml"));
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setTitle("Add Products to Cart");
+        window.setScene(new Scene(parent, 600, 460));
+        window.show();
     }
 }
