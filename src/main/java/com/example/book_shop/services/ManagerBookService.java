@@ -89,6 +89,17 @@ public class ManagerBookService {
 
     }
 
+    public static void deleteBook(String title, String author) {
+
+        for (Book book : book_database) {
+            if (Objects.equals(title, book.getTitle()) && Objects.equals(author, book.getAuthor())) {
+                book_database.remove(book);
+                persistBooks();
+                break;
+            }
+        }
+    }
+
     public static void checkBookDoesntExist(String title, String author) throws BookDoesntExistException {
         int book_exists = 0;
 
