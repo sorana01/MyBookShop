@@ -42,6 +42,7 @@ public class LogInController {
     public void userLogIn(ActionEvent bookShopInterface) throws Exception {
         try {
             UserService.checkUserCredentials(username.getText(), password.getText(), (String) role.getValue());
+            loggedUser = UserService.getLoggedUser(username.getText());
             login_message.setText("Login successfully!");
             String userRole = UserService.getUserRole(username.getText());
             if(userRole.equals("Manager")){
@@ -84,6 +85,10 @@ public class LogInController {
         window.setTitle("Registration");
         window.setScene(new Scene(root1, 600, 400));
         window.show();
+    }
+
+    public static String getLoggedUser() {
+        return loggedUser;
     }
 
 }
