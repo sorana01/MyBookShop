@@ -121,7 +121,10 @@ public class ManagerBookService {
             if (Objects.equals(order.getOrder_number(), number)) {
                 order.setStatus(new_status);
                 ClientBookService.persistOrders();
-
+                if (Objects.equals(new_status, "ACCEPTED")) {
+                    accepted_order_database.add(order);
+                    persistAcceptedOrders();
+                }
                 break;
             }
         }
