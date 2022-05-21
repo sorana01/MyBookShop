@@ -63,7 +63,12 @@ public class ManagerSeeOrdersController {
     }
 
 
-    public void backButton(ActionEvent actionEvent) {
+    public void backButton(ActionEvent actionEvent) throws IOException {
+        Parent root1 = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("manager_page.fxml")));
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setTitle("Book Shop");
+        window.setScene(new Scene(root1, 600, 460));
+        window.show();
     }
 
     public void acceptOrReject(ActionEvent actionEvent) throws IOException {
