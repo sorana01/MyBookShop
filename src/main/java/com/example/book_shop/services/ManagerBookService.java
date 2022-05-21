@@ -22,6 +22,7 @@ public class ManagerBookService {
     public static List<Book> getBooks() {
         return book_database;
     }
+    public static List<Order> getAccepted_order_database() { return accepted_order_database; }
 
 
     public static void loadBooksFromFile() throws IOException {
