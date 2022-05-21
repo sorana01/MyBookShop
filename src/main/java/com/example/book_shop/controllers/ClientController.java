@@ -58,6 +58,11 @@ public class ClientController {
         window.show();
     }
 
-    public void seeOrders(ActionEvent actionEvent) {
+    public void seeOrders(ActionEvent actionEvent) throws IOException {
+        Parent root1 = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("client_see_orders.fxml")));
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setTitle("Add Products to Cart");
+        window.setScene(new Scene(root1, 600, 460));
+        window.show();
     }
 }
