@@ -24,7 +24,12 @@ public class PlaceOrderController {
     }
 
 
-    public void backButton(ActionEvent actionEvent) {
+    public void backButton(ActionEvent actionEvent) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource("see_cart.fxml"));
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setTitle("Shopping Cart");
+        window.setScene(new Scene(parent, 600, 460));
+        window.show();
     }
 
     public void finishOrder(ActionEvent actionEvent) throws IOException {
