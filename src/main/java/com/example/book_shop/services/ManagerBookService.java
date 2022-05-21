@@ -23,6 +23,8 @@ public class ManagerBookService {
         return book_database;
     }
 
+    public static List<Order> getAccepted_order_database() { return accepted_order_database; }
+
 
     public static void loadBooksFromFile() throws IOException {
         if (!Files.exists(BOOKS_PATH)) {
@@ -115,13 +117,14 @@ public class ManagerBookService {
         }
     }
 
-    public static void modifyOrderStatus(int number, String new_status) throws EmptyTextFieldsException, StatusAlreadyModifiedException, OrderNumberDoesntExistException {
+    public static void modifyOrderStatus(String number, String new_status) throws EmptyTextFieldsException, StatusAlreadyModifiedException, OrderNumberDoesntExistException, NotAllCharactersAreDigitsException {
         checkEmptyTextFieldsForModifyStatus(number, new_status);
+        UserService.checkAllDigitsEntered(number);
         checkStatusAlreadyModified(number);
         checkOrderNumberDoesntExist(number);
 
         for (Order order : ClientBookService.getOrder_database()) {
-            if (Objects.equals(order.getOrder_number(), number)) {
+            if (Objects.equals(order.getOrder_number(), Integer.parseInt(number))) {
                 order.setStatus(new_status);
                 ClientBookService.persistOrders();
                 if (Objects.equals(new_status, "ACCEPTED")) {
@@ -133,11 +136,11 @@ public class ManagerBookService {
         }
     }
 
-    public static void checkOrderNumberDoesntExist(int number) throws OrderNumberDoesntExistException {
+    public static void checkOrderNumberDoesntExist(String number) throws OrderNumberDoesntExistException {
         int exists = 0;
 
         for (Order order : ClientBookService.getOrder_database()) {
-            if (Objects.equals(number, order.getOrder_number()))
+            if (Objects.equals(Integer.parseInt(number), order.getOrder_number()))
                 exists = 1;
         }
         if (exists == 0) {
@@ -157,8 +160,10 @@ public class ManagerBookService {
             throw new BookDoesntExistException();
     }
 
-    public static void checkEmptyTextFieldsForModifyStatus(int number, String status) throws EmptyTextFieldsException{
-        if( Objects.equals(number,"") || Objects.equals(status, ""))
+    public static void checkEmptyTextFieldsForModifyStatus(String number, String status) throws EmptyTextFieldsException{
+        if( Objects.equals(number,""))
+            throw new EmptyTextFieldsException();
+        else if (! (Objects.equals(status, "ACCEPTED") || Objects.equals(status, "REJECTED") || Objects.equals(status, "DELIVERED")) )
             throw new EmptyTextFieldsException();
     }
 
@@ -179,9 +184,9 @@ public class ManagerBookService {
                 throw new TitleAndAuthorUsedException();
     }
 
-    public static void checkStatusAlreadyModified(int number) throws StatusAlreadyModifiedException{
+    public static void checkStatusAlreadyModified(String number) throws StatusAlreadyModifiedException{
         for (Order order : ClientBookService.getOrder_database()) {
-            if (Objects.equals(number, order.getOrder_number())) {
+            if (Objects.equals(Integer.parseInt(number), order.getOrder_number())) {
                 if (!Objects.equals(order.getStatus(), "PENDING"))
                     throw new StatusAlreadyModifiedException();
             }

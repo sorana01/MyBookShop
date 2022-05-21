@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="600.0" style="-fx-background-color: #29d6b8; -fx-border-color: #E24460;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.book_shop.controllers.AcceptOrRejectController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="600.0" style="-fx-background-color: #29d6b8; -fx-border-color: #E24460;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.book_shop.controllers.DeliverOrderController">
     <left>
         <AnchorPane prefHeight="400.0" prefWidth="290.0" BorderPane.alignment="CENTER">
             <children>
@@ -25,7 +25,7 @@
                         <Font name="System Bold" size="15.0" />
                     </font>
                 </Button>
-                <Label layoutX="14.0" layoutY="62.0" prefHeight="41.0" prefWidth="274.0" text="Accept or Reject..." textFill="#0f483d">
+                <Label layoutX="14.0" layoutY="62.0" prefHeight="41.0" prefWidth="274.0" text="I would like to Deliver..." textFill="#0f483d">
                     <font>
                         <Font name="System Bold Italic" size="21.0" />
                     </font>
@@ -46,15 +46,15 @@
                         </Text>
                     </center>
                 </BorderPane>
-                <Label fx:id="message" layoutX="135.0" layoutY="367.0" textFill="RED">
+                <Label fx:id="message" layoutX="136.0" layoutY="376.0" textFill="RED">
                     <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold" size="15.0" />
                     </font></Label>
-            <Label layoutX="14.0" layoutY="229.0" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: #E24460;" text="Status">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
+                <Label layoutX="14.0" layoutY="229.0" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: #E24460;" text="Status">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
             </children>
         </AnchorPane>
     </left>
@@ -72,7 +72,7 @@
                     </image>
                 </ImageView>
                 <TextField fx:id="order_number" layoutX="-52.0" layoutY="156.0" prefHeight="26.0" prefWidth="133.0" promptText="Order Number" />
-            <ChoiceBox fx:id="accept_or_reject" layoutX="-52.0" layoutY="229.0" prefHeight="26.0" prefWidth="135.0" />
+                <ChoiceBox fx:id="new_status" layoutX="-52.0" layoutY="229.0" prefHeight="26.0" prefWidth="135.0" />
             </children>
         </AnchorPane>
     </right>

@@ -4,7 +4,7 @@ import com.example.book_shop.exceptions.EmptyTextFieldsException;
 import com.example.book_shop.exceptions.NotAllCharactersAreDigitsException;
 import com.example.book_shop.exceptions.OrderNumberDoesntExistException;
 import com.example.book_shop.exceptions.StatusAlreadyModifiedException;
-import com.example.book_shop.services.ManagerBookService;
+import com.example.book_shop.services.CourierBookService;
 import com.example.book_shop.services.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,40 +20,39 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class AcceptOrRejectController {
+public class DeliverOrderController {
     @FXML
-    Label message;
+    private TextField order_number;
     @FXML
-    TextField order_number;
+    private Label message;
     @FXML
-    ChoiceBox accept_or_reject;
+    private ChoiceBox new_status;
 
-    @FXML
     public void initialize() {
-        accept_or_reject.getItems().addAll("REJECTED", "ACCEPTED");
+        new_status.getItems().addAll("DELIVERED");
     }
 
-
-    public void backButton(ActionEvent actionEvent) throws IOException {
-        Parent root1 = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("manager_view_orders.fxml")));
-        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        window.setTitle("Book Shop");
-        window.setScene(new Scene(root1, 600, 460));
-        window.show();
-    }
 
     public void saveButton(ActionEvent actionEvent) {
-        try {
-            ManagerBookService.modifyOrderStatus(order_number.getText(), (String) accept_or_reject.getValue());
+        try{
+            CourierBookService.modifyOrderStatus(order_number.getText(), (String) new_status.getValue());
             message.setText("Status modified successfully!");
-        } catch (EmptyTextFieldsException e) {
+        } catch(NotAllCharactersAreDigitsException e) {
+            message.setText(e.getMessage());
+        } catch(EmptyTextFieldsException e) {
             message.setText(e.getMessage());
         } catch(StatusAlreadyModifiedException e) {
             message.setText(e.getMessage());
         } catch(OrderNumberDoesntExistException e) {
             message.setText(e.getMessage());
-        } catch (NotAllCharactersAreDigitsException e) {
-            message.setText(e.getMessage());
         }
+    }
+
+    public void backButton(ActionEvent actionEvent) throws IOException {
+        Parent root1 = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("courier_page.fxml")));
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setTitle("Book Shop");
+        window.setScene(new Scene(root1, 600, 460));
+        window.show();
     }
 }
