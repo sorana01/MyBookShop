@@ -74,7 +74,8 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="expiration_date" layoutX="168.0" layoutY="333.0" prefHeight="26.0" prefWidth="131.0" promptText="MM/YY" />
+            <ChoiceBox fx:id="month" layoutX="168.0" layoutY="329.0" prefHeight="26.0" prefWidth="82.0" />
+            <ChoiceBox fx:id="year" layoutX="258.0" layoutY="329.0" prefHeight="26.0" prefWidth="44.0" />
             </children>
         </AnchorPane>
     </left>
