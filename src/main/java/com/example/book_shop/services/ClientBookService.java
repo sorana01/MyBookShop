@@ -19,6 +19,10 @@ public class ClientBookService {
     private static Book my_book;
 
 
+    public static List<Book> getShoppingCart_database() {
+        return shopping_cart_database;
+    }
+
 
     public static void initializeShoppingCart() throws IOException {
         if (!Files.exists(SHOPPING_CART_PATH)) {
