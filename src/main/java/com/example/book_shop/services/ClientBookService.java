@@ -65,15 +65,14 @@ public class ClientBookService {
         persistShoppingCart();
     }
 
-    public static void placeOrder(String full_name, String card_type, String card_number, String cvv, String expiration_date)
+    public static void placeOrder(String full_name, String card_type, String card_number, String cvv, String month, String year)
             throws IOException, EmptyTextFieldsException, NotAllCharactersAreDigitsException {
         loggedUser = LogInController.getLoggedUser();
         User client = new User();
 
-        checkEmptyTextFieldsForOrder(full_name, card_type, card_number, cvv, expiration_date);
+        checkEmptyTextFieldsForOrder(full_name, card_type, card_number, cvv, month, year);
         UserService.checkAllDigitsEntered(card_number);
         UserService.checkAllDigitsEntered(cvv);
-        UserService.checkAllDigitsEntered(expiration_date);
 
 
         for (User user : user_database) {
@@ -122,12 +121,20 @@ public class ClientBookService {
 
     }
 
-    private static void checkEmptyTextFieldsForOrder(String name, String card_type, String card_number, String cvv, String date) throws EmptyTextFieldsException {
+    private static void checkEmptyTextFieldsForOrder(String name, String card_type, String card_number, String cvv, String month, String year) throws EmptyTextFieldsException {
         if( Objects.equals(name,"") || Objects.equals(card_number,"")
-                || Objects.equals(cvv,"") || Objects.equals(date,""))
+                || Objects.equals(cvv,"") )
             throw new EmptyTextFieldsException();
         else if( !( Objects.equals(card_type,"MasterCard") || Objects.equals(card_type,"PayPal") || Objects.equals(card_type, "VISA")
         || Objects.equals(card_type, "AmericanExpress")))
+            throw new EmptyTextFieldsException();
+        else if ( !(Objects.equals(month, "January") || Objects.equals(month, "February") || Objects.equals(month, "March")
+        || Objects.equals(month, "April") || Objects.equals(month, "May") || Objects.equals(month, "June") || Objects.equals(month, "July")
+        || Objects.equals(month, "August") || Objects.equals(month, "September") || Objects.equals(month, "October")
+        || Objects.equals(month, "November") || Objects.equals(month, "December")))
+            throw new EmptyTextFieldsException();
+        else if ( !(Objects.equals(year, "2022") || Objects.equals(year, "2023") || Objects.equals(year, "2024") || Objects.equals(year, "2025")
+        || Objects.equals(year, "2026") || Objects.equals(year, "2027") || Objects.equals(year, "2028") || Objects.equals(year, "2029") || Objects.equals(year, "2030")))
             throw new EmptyTextFieldsException();
     }
 

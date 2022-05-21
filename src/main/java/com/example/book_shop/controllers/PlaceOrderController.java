@@ -28,14 +28,19 @@ public class PlaceOrderController {
     @FXML
     private TextField cvv;
     @FXML
-    private TextField expiration_date;
+    private ChoiceBox month;
+    @FXML
+    private ChoiceBox year;
 
     int window = 0;
 
     @FXML
     public void initialize() {
         card_type.getItems().addAll("MasterCard", "PayPal", "VISA", "AmericanExpress");
+        month.getItems().addAll("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+        year.getItems().addAll("2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030");
     }
+
 
 
     public void backButton(ActionEvent actionEvent) throws IOException {
@@ -48,7 +53,8 @@ public class PlaceOrderController {
 
     public void finishOrder(ActionEvent actionEvent) throws IOException {
         try {
-            ClientBookService.placeOrder(full_name.getText(), (String) card_type.getValue(), card_number.getText(), cvv.getText(), expiration_date.getText());
+            ClientBookService.placeOrder(full_name.getText(), (String) card_type.getValue(), card_number.getText(), cvv.getText(),
+                    (String) month.getValue(), (String) year.getValue());
             message.setText("Order successfully placed!");
             window = 1;
         } catch (EmptyTextFieldsException e) {
