@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="600.0" style="-fx-background-color: #29d6b8; -fx-border-color: #E24460;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.book_shop.controllers.DeliverOrderController">
+    <left>
+        <AnchorPane prefHeight="400.0" prefWidth="290.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label layoutX="14.0" layoutY="155.0" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: #E24460;" text="Order Number">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Button layoutX="-3.0" layoutY="412.0" mnemonicParsing="false" onAction="#backButton" prefHeight="46.0" prefWidth="139.0" style="-fx-background-color: #E24460;" text="Back">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                </Button>
+                <Label layoutX="14.0" layoutY="62.0" prefHeight="41.0" prefWidth="274.0" text="I would like to Deliver..." textFill="#0f483d">
+                    <font>
+                        <Font name="System Bold Italic" size="21.0" />
+                    </font>
+                </Label>
+                <Label fx:id="registration_message" layoutX="179.0" layoutY="306.0" style="-fx-text-fill: #FF0000;">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                    <effect>
+                        <Glow />
+                    </effect>
+                </Label>
+                <BorderPane prefHeight="46.0" prefWidth="600.0" style="-fx-border-color: #E24460;">
+                    <left>
+                        <ImageView fitHeight="44.0" fitWidth="45.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                            <image>
+                                <Image url="@book_icon.png" />
+                            </image>
+                        </ImageView>
+                    </left>
+                    <center>
+                        <Text fill="#179415" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Shop  " wrappingWidth="224.221923828125" BorderPane.alignment="CENTER">
+                            <font>
+                                <Font name="Tahoma Bold" size="33.0" />
+                            </font>
+                        </Text>
+                    </center>
+                </BorderPane>
+                <Label fx:id="message" layoutX="149.0" layoutY="392.0" textFill="RED">
+                    <font>
+                        <Font size="14.0" />
+                    </font></Label>
+                <Label layoutX="14.0" layoutY="229.0" prefHeight="27.0" prefWidth="150.0" style="-fx-background-color: #E24460;" text="Status">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </left>
+    <right>
+        <AnchorPane prefHeight="400.0" prefWidth="314.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button layoutX="178.0" layoutY="411.0" mnemonicParsing="false" onAction="#saveButton" prefHeight="46.0" prefWidth="139.0" style="-fx-background-color: #E24460;" text="Save">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                </Button>
+                <ImageView fitHeight="44.0" fitWidth="45.0" layoutX="273.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@book_icon.png" />
+                    </image>
+                </ImageView>
+                <TextField fx:id="order_number" layoutX="-52.0" layoutY="156.0" prefHeight="26.0" prefWidth="133.0" promptText="Order Number" />
+                <ChoiceBox fx:id="new_status" layoutX="-52.0" layoutY="229.0" prefHeight="26.0" prefWidth="135.0" />
+            </children>
+        </AnchorPane>
+    </right>
+</BorderPane>
