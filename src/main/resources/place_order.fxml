@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -26,15 +25,7 @@
                         <Font name="System Bold Italic" size="21.0" />
                     </font>
                 </Label>
-                <Label fx:id="registration_message" layoutX="179.0" layoutY="306.0" style="-fx-text-fill: #FF0000;">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                    <effect>
-                        <Glow />
-                    </effect>
-                </Label>
-                <TextField layoutX="168.0" layoutY="122.0" prefHeight="26.0" prefWidth="131.0" promptText="Full Name" />
+                <TextField fx:id="full_name" layoutX="168.0" layoutY="122.0" prefHeight="26.0" prefWidth="131.0" promptText="Full Name" />
                 <BorderPane prefHeight="46.0" prefWidth="600.0" style="-fx-border-color: #E24460;">
                     <left>
                         <ImageView fitHeight="44.0" fitWidth="45.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
@@ -53,10 +44,10 @@
                 </BorderPane>
                 <Label fx:id="message" layoutX="209.0" layoutY="426.0" textFill="RED">
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold" size="16.0" />
                </font></Label>
-                <TextField layoutX="168.0" layoutY="228.0" prefHeight="26.0" prefWidth="131.0" promptText="Card Number" />
-                <TextField layoutX="168.0" layoutY="279.0" prefHeight="26.0" prefWidth="131.0" promptText="CVV" />
+                <TextField fx:id="card_number" layoutX="168.0" layoutY="228.0" prefHeight="26.0" prefWidth="131.0" promptText="Card Number" />
+                <TextField fx:id="cvv" layoutX="168.0" layoutY="279.0" prefHeight="26.0" prefWidth="131.0" promptText="CVV" />
             <Label layoutX="13.0" layoutY="333.0" prefHeight="27.0" prefWidth="135.0" style="-fx-background-color: #E24460;" text="Expiration Date">
                <font>
                   <Font name="System Bold" size="18.0" />
@@ -83,7 +74,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TextField layoutX="168.0" layoutY="333.0" prefHeight="26.0" prefWidth="131.0" promptText="MM/YY" />
+            <TextField fx:id="expiration_date" layoutX="168.0" layoutY="333.0" prefHeight="26.0" prefWidth="131.0" promptText="MM/YY" />
             </children>
         </AnchorPane>
     </left>

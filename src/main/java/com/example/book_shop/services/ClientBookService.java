@@ -65,9 +65,16 @@ public class ClientBookService {
         persistShoppingCart();
     }
 
-    public static void placeOrder() throws IOException {
+    public static void placeOrder(String full_name, String card_type, String card_number, String cvv, String expiration_date)
+            throws IOException, EmptyTextFieldsException, NotAllCharactersAreDigitsException {
         loggedUser = LogInController.getLoggedUser();
         User client = new User();
+
+        checkEmptyTextFieldsForOrder(full_name, card_type, card_number, cvv, expiration_date);
+        UserService.checkAllDigitsEntered(card_number);
+        UserService.checkAllDigitsEntered(cvv);
+        UserService.checkAllDigitsEntered(expiration_date);
+
 
         for (User user : user_database) {
             if (Objects.equals(loggedUser, user.getUsername()))
@@ -113,6 +120,15 @@ public class ClientBookService {
         if( Objects.equals(title,"") || Objects.equals(author, "") || Objects.equals(quantity,""))
             throw new EmptyTextFieldsException();
 
+    }
+
+    private static void checkEmptyTextFieldsForOrder(String name, String card_type, String card_number, String cvv, String date) throws EmptyTextFieldsException {
+        if( Objects.equals(name,"") || Objects.equals(card_number,"")
+                || Objects.equals(cvv,"") || Objects.equals(date,""))
+            throw new EmptyTextFieldsException();
+        else if( !( Objects.equals(card_type,"MasterCard") || Objects.equals(card_type,"PayPal") || Objects.equals(card_type, "VISA")
+        || Objects.equals(card_type, "AmericanExpress")))
+            throw new EmptyTextFieldsException();
     }
 
     private static void checkIfBookAvailable(String title, String author, String quantity) throws BookDoesntExistException, InvalidQuantityException {
