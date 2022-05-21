@@ -2,6 +2,7 @@ package com.example.book_shop.services;
 
 import com.example.book_shop.exceptions.*;
 import com.example.book_shop.model.Book;
+import com.example.book_shop.model.Order;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
@@ -16,6 +17,8 @@ public class ClientBookService {
     private static List<Book> book_database = ManagerBookService.getBooks();
     private static List<Book> shopping_cart_database;
     private static final Path SHOPPING_CART_PATH = FileSystemService.getPathToFile("shopping_cart.json");
+    private static List<Order> order_database;
+    private static final Path ORDER_PATH = FileSystemService.getPathToFile("orders.json");
     private static Book my_book;
 
 
@@ -23,6 +26,15 @@ public class ClientBookService {
         return shopping_cart_database;
     }
 
+    public static void loadOrdersFromFile() throws IOException {
+        if (!Files.exists(ORDER_PATH)) {
+            FileUtils.copyURLToFile(Objects.requireNonNull(UserService.class.getClassLoader().getResource("orders.json")), ORDER_PATH.toFile());
+        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        order_database = objectMapper.readValue(ORDER_PATH.toFile(), new TypeReference<>() {
+        });
+    }
 
     public static void initializeShoppingCart() throws IOException {
         if (!Files.exists(SHOPPING_CART_PATH)) {
@@ -75,6 +87,15 @@ public class ClientBookService {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(SHOPPING_CART_PATH.toFile(), shopping_cart_database);
         } catch (IOException e) {
             throw new CouldNotWriteBooksException();
+        }
+    }
+
+    public static void persistOrders() {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(ORDER_PATH.toFile(), order_database);
+        } catch (IOException e) {
+            throw new CouldNotWriteOrdersException();
         }
     }
 

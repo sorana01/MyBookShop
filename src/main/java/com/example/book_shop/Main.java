@@ -16,6 +16,7 @@ public class Main extends Application {
         UserService.loadUsersFromFile();
         ManagerBookService.loadBooksFromFile();
         ClientBookService.initializeShoppingCart();
+        ClientBookService.loadOrdersFromFile();
         primaryStage.setResizable(false);
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
