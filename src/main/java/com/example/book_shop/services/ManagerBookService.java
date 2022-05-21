@@ -1,9 +1,6 @@
 package com.example.book_shop.services;
 
-import com.example.book_shop.exceptions.CouldNotWriteBooksException;
-import com.example.book_shop.exceptions.EmptyTextFieldsException;
-import com.example.book_shop.exceptions.NotAllCharactersAreDigitsException;
-import com.example.book_shop.exceptions.TitleAndAuthorUsedException;
+import com.example.book_shop.exceptions.*;
 import com.example.book_shop.model.Book;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,16 +40,18 @@ public class ManagerBookService {
         persistBooks();
     }
 
-    public static void editBook(String title, String author, String title_new, String author_new, String price_new, String category_new, String quantity_new) {
-        String category = "";
+    public static void editBook(String title, String author, String title_new, String author_new, String price_new, String category_new, String quantity_new) throws BookDoesntExistException, EmptyTextFieldsException, NothingToEditException {
+        checkEmptyTextFieldsForEdit(title, author);
+        checkBookDoesntExist(title, author);
+
 
         Book book_aux = new Book();
         int index = 0;
+        boolean change = false;
 
         for (Book book : book_database) {
             if (Objects.equals(title, book.getTitle()) && Objects.equals(author, book.getAuthor())) {
                 book_aux = book;
-                category = book.getCategory();
                 break;
             }
             index++;
@@ -60,26 +59,51 @@ public class ManagerBookService {
 
         if (!Objects.equals(title_new, "")) {
             book_aux.setTitle(title_new);
-            book_aux.setCategory(category);
+            change = true;
         }
         if (!Objects.equals(author_new, "")) {
             book_aux.setAuthor(author_new);
-            book_aux.setCategory(category);
+            change = true;
         }
         if (!Objects.equals(price_new, "")) {
             book_aux.setPrice(price_new);
-            book_aux.setCategory(category);
+            change = true;
         }
-        if (!Objects.equals(category_new, "")) {
+        if (Objects.equals(category_new, "Romance") || Objects.equals(category_new, "Horror")
+                || Objects.equals(category_new, "Thriller") || Objects.equals(category_new, "Science Fiction")
+        || Objects.equals(category_new, "Others")) {
             book_aux.setCategory(category_new);
+            change = true;
         }
         if (!Objects.equals(quantity_new, "")) {
             book_aux.setQuantity(quantity_new);
-            book_aux.setCategory(category);
+            change = true;
         }
 
-        book_database.set(index, book_aux);
-        persistBooks();
+        if (change == true) {
+            book_database.set(index, book_aux);
+            persistBooks();
+        }
+        else
+            throw new NothingToEditException();
+
+    }
+
+    public static void checkBookDoesntExist(String title, String author) throws BookDoesntExistException {
+        int book_exists = 0;
+
+        for (Book book : book_database) {
+            if (Objects.equals(author, book.getAuthor()) && Objects.equals(title, book.getTitle()))
+                book_exists = 1;
+        }
+
+        if (book_exists == 0)
+            throw new BookDoesntExistException();
+    }
+
+    public static void checkEmptyTextFieldsForEdit(String title, String author) throws EmptyTextFieldsException{
+        if( Objects.equals(title,"") || Objects.equals(author, ""))
+            throw new EmptyTextFieldsException();
     }
 
     public static void checkEmptyTextFields(String title, String author, String price, String category, String quantity) throws EmptyTextFieldsException {

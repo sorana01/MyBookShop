@@ -61,7 +61,10 @@
                         </Text>
                     </center>
                 </BorderPane>
-                <Label fx:id="add_message" layoutX="179.0" layoutY="418.0" textFill="RED" />
+                <Label fx:id="add_message" layoutX="179.0" layoutY="418.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
                 <TextField fx:id="author" layoutX="143.0" layoutY="166.0" prefHeight="26.0" prefWidth="131.0" promptText="Author" />
             </children>
         </AnchorPane>

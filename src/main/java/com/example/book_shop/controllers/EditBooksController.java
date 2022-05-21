@@ -1,5 +1,8 @@
 package com.example.book_shop.controllers;
 
+import com.example.book_shop.exceptions.BookDoesntExistException;
+import com.example.book_shop.exceptions.EmptyTextFieldsException;
+import com.example.book_shop.exceptions.NothingToEditException;
 import com.example.book_shop.services.ManagerBookService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,7 +38,15 @@ public class EditBooksController {
     }
 
     public void edit_book(ActionEvent actionEvent) {
-        ManagerBookService.editBook(title.getText(), author.getText(), title_new.getText(), author_new.getText(), price_new.getText(), (String) category_new.getValue(), quantity_new.getText());
-        add_message.setText("Book edited successfully!");
+        try {
+            ManagerBookService.editBook(title.getText(), author.getText(), title_new.getText(), author_new.getText(), price_new.getText(), (String) category_new.getValue(), quantity_new.getText());
+            add_message.setText("Book edited successfully!");
+        } catch(BookDoesntExistException e) {
+            add_message.setText(e.getMessage());
+        } catch(EmptyTextFieldsException e) {
+            add_message.setText(e.getMessage());
+        } catch(NothingToEditException e) {
+            add_message.setText(e.getMessage());
+        }
     }
 }
