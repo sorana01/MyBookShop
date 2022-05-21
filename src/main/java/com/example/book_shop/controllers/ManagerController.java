@@ -63,7 +63,12 @@ public class ManagerController {
     public void viewOrders(ActionEvent actionEvent) {
     }
 
-    public void deleteBook(ActionEvent actionEvent) {
+    public void deleteBook(ActionEvent actionEvent) throws IOException {
+        Parent root1 = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("delete_books.fxml")));
+        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setTitle("Delete Books");
+        window.setScene(new Scene(root1, 600, 460));
+        window.show();
     }
 
     public void editBook(ActionEvent actionEvent) throws IOException {
