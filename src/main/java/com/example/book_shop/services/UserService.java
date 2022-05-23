@@ -76,26 +76,26 @@ public class UserService {
         }
     }
 
-    private static void checkPhoneNumberNotUsed(String phone_number) throws PhoneNumberAlreadyUsedException {
+    public static void checkPhoneNumberNotUsed(String phone_number) throws PhoneNumberAlreadyUsedException {
         for (User user : user_database) {
             if (Objects.equals(phone_number, user.getPhone_number()))
                 throw new PhoneNumberAlreadyUsedException();
         }
     }
 
-    private static void checkPasswordConfirmation(String password, String confirm_password) throws WrongPasswordConfirmationException {
+    public static void checkPasswordConfirmation(String password, String confirm_password) throws WrongPasswordConfirmationException {
         if( !Objects.equals(password, confirm_password))
             throw new WrongPasswordConfirmationException();
     }
 
-    private static void checkUsedEmail(String email) throws EmailAlreadyUsedException{
+    public static void checkUsedEmail(String email) throws EmailAlreadyUsedException{
         for (User user : user_database) {
             if (Objects.equals(email, user.getEmail()))
                 throw new EmailAlreadyUsedException();
         }
     }
 
-    private static void checkEmptyTextFields(String username, String password, String role, String full_name,
+    public static void checkEmptyTextFields(String username, String password, String role, String full_name,
                                              String address, String email, String phone_number) throws EmptyTextFieldsException {
         if( Objects.equals(username,"") || Objects.equals(password, "") || Objects.equals(full_name,"")
                 || Objects.equals(address,"") || Objects.equals(email,"") || Objects.equals(phone_number,""))
@@ -104,7 +104,7 @@ public class UserService {
             throw new EmptyTextFieldsException();
     }
 
-    private static void checkUserDoesNotAlreadyExist(String username) throws UsernameAlreadyExistsException {
+    public static void checkUserDoesNotAlreadyExist(String username) throws UsernameAlreadyExistsException {
         for (User user : user_database) {
             if (Objects.equals(username, user.getUsername()))
                 throw new UsernameAlreadyExistsException();
@@ -141,7 +141,7 @@ public class UserService {
         }
     }
 
-    private static String encodePassword(String salt, String password) {
+    public static String encodePassword(String salt, String password) {
         MessageDigest md = getMessageDigest();
         md.update(salt.getBytes(StandardCharsets.UTF_8));
 
@@ -152,7 +152,7 @@ public class UserService {
                 .replace("\"", ""); //to be able to save in JSON format
     }
 
-    private static MessageDigest getMessageDigest() {
+    public static MessageDigest getMessageDigest() {
         MessageDigest md;
         try {
             md = MessageDigest.getInstance("SHA-512");
