@@ -42,9 +42,9 @@
                         <Font name="System Bold" size="20.0" />
                     </font>
                 </Label>
-                <TextField fx:id="username" layoutX="132.0" layoutY="119.0" promptText="Username" />
-                <PasswordField fx:id="password" layoutX="132.0" layoutY="170.0" promptText="Password" />
-                <Button fx:id="login" layoutX="133.0" layoutY="271.0" mnemonicParsing="false" onAction="#userLogIn" prefHeight="36.0" prefWidth="69.0" style="-fx-background-color: #E24460;" text="Log In">
+                <TextField id="usernameLogin" fx:id="username" layoutX="132.0" layoutY="119.0" promptText="Username" />
+                <PasswordField id="passwordLogin" fx:id="password" layoutX="132.0" layoutY="170.0" promptText="Password" />
+                <Button id="loginButton" fx:id="login" layoutX="133.0" layoutY="271.0" mnemonicParsing="false" onAction="#userLogIn" prefHeight="36.0" prefWidth="69.0" style="-fx-background-color: #E24460;" text="Log In">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
@@ -54,14 +54,14 @@
                         <Font name="System Bold" size="20.0" />
                     </font>
                 </Label>
-                <ChoiceBox fx:id="role" layoutX="131.0" layoutY="220.0" prefWidth="150.0" />
+                <ChoiceBox id="roleLogin" fx:id="role" layoutX="131.0" layoutY="220.0" prefWidth="150.0" />
                 <Text layoutX="10.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account?" wrappingWidth="138.069580078125" />
-                <Button layoutX="168.0" layoutY="339.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="34.0" prefWidth="123.0" style="-fx-background-color: #E24460;" text="Create Account">
+                <Button id="goToRegisterButton" layoutX="168.0" layoutY="339.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="34.0" prefWidth="123.0" style="-fx-background-color: #E24460;" text="Create Account">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Button>
-                <Label fx:id="login_message" layoutX="34.0" layoutY="83.0" textFill="RED">
+                <Label id="loginUsernameMessage" fx:id="login_message" layoutX="34.0" layoutY="83.0" textFill="RED">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font></Label>
