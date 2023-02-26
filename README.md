@@ -24,3 +24,13 @@ From the Courier page, you can see the orders accepted by the manager and choose
 ![image](https://user-images.githubusercontent.com/74464853/221370223-f84d57ef-1456-497f-8d13-4eb7ddacc1b8.png)
 
 * Manager page
+---
+![image](https://user-images.githubusercontent.com/74464853/221419581-6308e099-cbc9-4572-9b48-12e11ca83561.png)
+
+* Client page
+---
+![image](https://user-images.githubusercontent.com/74464853/221419607-37cf9bb3-cb7e-44ba-b3a2-42cbb0b13b17.png)
+
+* Courier page
+---
+![image](https://user-images.githubusercontent.com/74464853/221419629-376d7d6e-5652-404a-a7ed-7a39223687a2.png)
